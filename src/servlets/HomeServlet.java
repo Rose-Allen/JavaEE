@@ -1,5 +1,6 @@
 package servlets;
 
+import db.DBManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,14 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
 @WebServlet(value = "/home")
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        for (int i = 0; i < 10; i++) {
-            out.println("<h1>Hello world</h1>");
-        }
+        List<Tasks> tasks = DBManager.getTasks();
+        req.setAttribute("tasks", tasks);
+       req.getRequestDispatcher("templates/index.jsp").forward(req, resp);
     }
 }
