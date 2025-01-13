@@ -28,4 +28,33 @@ public class DBManager {
            System.out.println("Существует");
        }
    }
+
+   public static Tasks getTask(Long id) {
+       Tasks foundTask = null;
+       for (Tasks task : tasks) {
+           if (task.getId().equals(id)) {
+               foundTask = task;
+           }
+       }
+       return foundTask;
+   }
+   public static void deleteTask(Long id) {
+       Tasks foundTask = null;
+       for (Tasks task : tasks) {
+           if (task.getId().equals(id)) {
+               foundTask = task;
+           }
+       }
+       tasks.remove(foundTask);
+   }
+   public static void updateTask(Tasks task) {
+
+       for (Tasks task1 : tasks) {
+           if (task1.getId().equals(task.getId())) {
+               tasks.remove(task1);
+               tasks.add(task);
+           }
+       }
+
+   }
 }
